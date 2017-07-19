@@ -15,3 +15,7 @@ away_runs = data['away_errors']
 linear = linear_model.LinearRegression()
 hits = linear.fit(home_hits, home_runs)
 errors = linear.fit(home_errors, home_runs)
+
+sc_hits = linear.score(home_hits, home_runs)
+sc_errors = linear.score(home_errors, home_runs)
+
