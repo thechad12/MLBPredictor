@@ -1,29 +1,22 @@
 from sklearn import linear_model
+from sklearn import datasets
 import pandas as pd
 import os
+import statsmodels.api as sm
 
 f = open(os.path.join(os.path.dirname(__file__), os.pardir, 'output.csv'))
 
 data = pd.read_csv(f)
 
-home_team = data['home_team']
-home_errors = data['home_errors']
-home_hits = data['home_hits']
-home_runs = data['home_runs']
-away_team = data['away_team']
-away_hits = data['away_hits']
-away_errors = data['away_errors']
-away_runs = data['away_errors']
+df = pd.DataFrame(data)
 
+target = pd.DataFrame(data, columns=['home_runs'])
 
-linear = linear_model.LinearRegression()
+x = df['home_hits']
+y = target['home_runs']
 
-# Reshape data for consistency
-hits = linear.fit(home_hits.reshape(len(home_hits),1),
-	home_runs.reshape(len(home_runs),1))
-errors = linear.fit(home_errors.reshape(len(home_errors),1),
-	home_runs.reshape(len(home_runs),1))
+model = sm.OLS(y, x).fit()
+predict = model.predict(x)
 
-sc_hits = linear.score(hits, home_runs)
-sc_errors = linear.score(errors, home_runs)
-
+pred = model.summary()
+print(pred)
