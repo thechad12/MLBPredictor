@@ -14,9 +14,17 @@ target = pd.DataFrame(data, columns=['home_runs'])
 
 x = df['home_hits']
 y = target['home_runs']
+z = df['home_errors']
 
-model = sm.OLS(y, x).fit()
-predict = model.predict(x)
+model_hits = sm.OLS(y, x).fit()
+predict_hits = model_hits.predict(x)
 
-pred = model.summary()
-print(pred)
+pred_hits = model_hits.summary()
+
+model_errors = sm.OLS(z, x).fit()
+predict_errors = model_hits.predict(x)
+
+pred_errors = model_errors.summary()
+
+print(pred_hits)
+print(pred_errors)
