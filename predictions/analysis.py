@@ -10,11 +10,13 @@ data = pd.read_csv(f)
 
 df = pd.DataFrame(data)
 
-target = pd.DataFrame(data, columns=['home_runs'])
+target = pd.DataFrame(data, columns=['home_runs', 'home_errors', 'home_team'])
 
 x = df['home_hits']
 y = target['home_runs']
 z = df['home_errors']
+team = df['home_team']
+team = sm.add_constant(team)
 
 model_hits = sm.OLS(y, x).fit()
 predict_hits = model_hits.predict(x)
@@ -25,6 +27,3 @@ model_errors = sm.OLS(z, x).fit()
 predict_errors = model_hits.predict(x)
 
 pred_errors = model_errors.summary()
-
-print(pred_hits)
-print(pred_errors)
