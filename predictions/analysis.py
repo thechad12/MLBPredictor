@@ -27,3 +27,5 @@ model_errors = sm.OLS(z, x).fit()
 predict_errors = model_hits.predict(x)
 
 pred_errors = model_errors.summary()
+
+print(predict_hits)
